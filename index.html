@@ -15,8 +15,12 @@
       <nav class="navbar-fixed-top navbar-default nav-custom">
         <div class="navbar-header">
           <form class="form-horizontal" role="search" >
-            <input type="text" ng-model="searchCtrl.searchTerm">
-            <button class="btn" ng-click="searchCtrl.doSearch()">Search</button>
+
+            <!-- <label for="Search" ng-model="searchCtrl.searchTerm"> -->
+            <input type="text" ng-model="searchCtrl.searchTerm" ng-change="searchCtrl.doSearch()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+            <!-- </label> -->
+            <button class="btn" ng-click="searchCtrl.doSearch()">Search</button><br />
+            You searched for: {{ searchCtrl.searchTerm }}
           </form>
         </div>
       </nav>
@@ -29,7 +33,7 @@
         </ul> -->
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="user in searchCtrl.searchResult.items">
-            <img ng-src="{{user.avatar_url}}&s=50">
+            <img ng-src="{{user.avatar_url}}&s=50" class="avatar-img">
             <a ng-href="{{user.html_url}}">{{user.login}}</a>
           </li>
         </ul>
@@ -37,6 +41,7 @@
     </div>
     <script src="js/app.js"></script>
     <script src="js/controllers/gitUserSearchController.js"></script>
+    <script src="js/searchFactory.js"></script>
     <script src="js/token.js"></script>
   </body>
 </html>

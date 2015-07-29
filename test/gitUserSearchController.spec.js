@@ -14,12 +14,18 @@ describe('GitUserSearchController', function() {
 
   describe('when searching for a user', function() {
 
+    afterEach(function() {
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
+    });
+
     var httpBackend;
 
     beforeEach(inject(function($httpBackend) {
       httpBackend = $httpBackend;
       httpBackend
-      .when("GET", "https://api.github.com/search/users?access_token=" + token + "&q=hello")
+      .expectGET("https://api.github.com/search/users?access_token=" + token + "&q=hello")
+      // .expectGET("https://api.github.com/search/users?q=hello&access_token=" + token)
       .respond(
         { items: items }
       );
